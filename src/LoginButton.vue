@@ -4,7 +4,7 @@
 
 <script>
 
-import GoogleAuth from './../services/GoogleAuth.js';
+import GoogleAuth from './GoogleAuth.js';
 
 export default {
   name: "LoginButton",
