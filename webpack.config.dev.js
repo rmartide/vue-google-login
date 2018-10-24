@@ -7,6 +7,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dev'),
         filename: 'webpack.bundle.js'
     },
+    mode:'development',
     devServer: {
         contentBase: './dev'
     },

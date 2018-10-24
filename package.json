@@ -2,10 +2,10 @@
   "name": "vue-google-login",
   "version": "1.0.0",
   "description": "Button to login with google with really simple setup",
-  "main": "dist/index.js",
+  "main": "dist/vue-google-login.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --config webpack.config.dev.js --open --hot",
-    "build": "webpack --mode production -- config webpack.config.prod.js --progress",
+    "start": "webpack-dev-server --config webpack.config.dev.js --open --hot",
+    "build": "webpack --config webpack.config.prod.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
