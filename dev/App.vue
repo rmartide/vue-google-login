@@ -1,13 +1,14 @@
 <template>
     <div>
-        <GoogleSignIn :client_id="client_id" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleSignIn>
-        <GoogleSignIn :client_id="client_id" :logout=true>Logout</GoogleSignIn>
+        <!-- <GoogleSignIn :client_id="client_id" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleSignIn>
+        <GoogleSignIn :client_id="client_id" :logout=true>Logout</GoogleSignIn> -->
         <button @click="handleClick">isLoggedIn</button>
     </div>
 </template>
 
 <script>
 import { GoogleSignIn, isSignedIn, getAuth2} from '../src/';
+import GoogleAuthPromises from '../src/GoogleAuthPromises.js';
 const CLIENT_ID = "672275288589-gdg4j010jalhp5n6gh45333dhuq69liv.apps.googleusercontent.com";
 
 export default {
@@ -28,7 +29,10 @@ export default {
             console.log(err)
         },
         handleClick() {
-            console.log(getAuth2().isSignedIn.get());
+            // console.log(getAuth2().isSignedIn.get());
+            GoogleAuthPromises.load(CLIENT_ID).then(auth2 => {
+                console.log(auth2);
+            })
         }
     }
 }
