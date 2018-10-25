@@ -1,9 +1,9 @@
-import {load} from './GoogleAuthPromises';
+import GoogleAuth from './GoogleAuth';
 
 export default {
     install (Vue, {client_id}) {
-        load(client_id).then(auth2 => {
-            console.log(auth2);
+        GoogleAuth.load(client_id).then(auth2 => {
+            Vue.GoogleAuth = auth2;
         })
     }
 }

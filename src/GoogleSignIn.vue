@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         handleClick() {
-            const method = this.logout ? 'signOut' : 'signIn' ;
+            const method = this.logout ? 'signOut' : 'signIn';
             GoogleAuth[method]().then(result => {
                 return this.onSuccess(result);
             }).catch(err => {
