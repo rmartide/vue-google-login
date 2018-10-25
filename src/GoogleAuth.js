@@ -27,9 +27,9 @@ const load = (client_id) => {
     createScript();
 }
 
-const wrapper = (f, method) => {
-    if (window.auth2)
-        return f[method]();
+const wrapper = (f, method, isProperty) => {
+    if (f)
+        return isProperty ? f[method] : f[method]();
     else
         return Promise.reject({ err: 'Script not loaded yet or not loaded correctly' })
 }
@@ -38,7 +38,8 @@ const signIn = () => wrapper(window.auth2, 'signIn');
 
 const signOut = () => wrapper(window.auth2, 'signOut');
 
-
+export const isSignedIn = () => wrapper(window.auth2, 'isSignedIn', true).get();
+export const getAuth2 = () => window.auth2;
 
 export default {
     load,
