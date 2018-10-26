@@ -4,7 +4,7 @@ Button to login with google with really simple setup
 
 ## UNDER CONSTRUCTION (close to being finished)
 
-## INSTALLATION
+## Installation
 
 To use the signin and and signout buttons there is no installation needed, just import and use.
 

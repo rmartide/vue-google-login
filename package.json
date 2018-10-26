@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/rmartide/vue-google-login/issues"
   },
-  "homepage": "https://github.com/rmartide/vue-google-login#readme",
+  "homepage": "https://rmartide.github.io/vue-google-login/",
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
