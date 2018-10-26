@@ -1,4 +1,5 @@
 let auth2;
+let loadingPromise;
 
 const createScript = () => {
     return new Promise((resolve, reject) => {
@@ -16,19 +17,31 @@ const createScript = () => {
 
 }
 
+const onGapiLoadPromise = (client_id) => {
+    return new Promise((resolve, reject) => {
+        window.onGapiLoad = () => {
+            console.log('loading...');
+            window.gapi.load('auth2', () => {
+                auth2 = window.gapi.auth2.init({
+                    client_id: client_id,
+                });
+                console.log('loaded...');
+                resolve(auth2);
+            })
+        }
+    })
+}
+
 const createCallback = (client_id) => {
     return new Promise((resolve, reject) => {
-        if (!window.onGapiLoad && client_id) {
-            window.onGapiLoad = () => {
-                window.gapi.load('auth2', () => {
-                    auth2 = window.gapi.auth2.init({
-                        client_id: client_id,
-                    });
-                    resolve(auth2);
-                })
-            }
-        } else if (auth2) {
+        if (auth2) {
             resolve(auth2);
+        } else {
+            if (!loadingPromise)
+                loadingPromise = onGapiLoadPromise(client_id);
+            loadingPromise.then(auth2 => {
+                resolve(auth2);
+            })
         }
     })
 }
