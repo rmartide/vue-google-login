@@ -1,7 +1,7 @@
 <template>
     <div>
         <GoogleSignIn :client_id="client_id" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleSignIn>
-        <GoogleSignIn :client_id="client_id" :logout=true class="button-style">Logout</GoogleSignIn>
+        <GoogleSignIn :client_id="client_id" :signOut=true class="button-style">Logout</GoogleSignIn>
         <button @click="handleClick">isLoggedIn</button>
     </div>
 </template>
