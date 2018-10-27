@@ -43,11 +43,7 @@ export default {
         }
     },
     mounted() {
-        GoogleAuth.load(this.client_id).then(auth2 => {
-            console.log(auth2)
-        }).catch(err => {
-            console.log(err);
-        });
+        GoogleAuth.load(this.client_id);
     }
 }
 </script>
