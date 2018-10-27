@@ -15,7 +15,10 @@ export default {
         GoogleLogo
     },
     props: {
-        client_id: String,
+        client_id: {
+            type: String,
+            required: true
+        },
         onSuccess: {
             type: Function,
             default: () => { }
@@ -40,11 +43,11 @@ export default {
         }
     },
     mounted() {
-       /*  GoogleAuth.load(this.client_id).then(auth2 => {
+        GoogleAuth.load(this.client_id).then(auth2 => {
             console.log(auth2)
         }).catch(err => {
             console.log(err);
-        }); */
+        });
     }
 }
 </script>

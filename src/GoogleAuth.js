@@ -20,55 +20,50 @@ const createScript = () => {
 const onGapiLoadPromise = (client_id) => {
     return new Promise((resolve, reject) => {
         window.onGapiLoad = () => {
-            console.log('loading...');
             window.gapi.load('auth2', () => {
-                auth2 = window.gapi.auth2.init({
-                    client_id: client_id,
-                });
-                console.log('loaded...');
+                try {
+                    auth2 = window.gapi.auth2.init({
+                        client_id: client_id,
+                    });
+                } catch (err) {
+                    reject({ err: 'client_id missing or is incorrect, did you add it to the component or plugin?' })
+                }
                 resolve(auth2);
             })
         }
     })
 }
 
-const createCallback = (client_id) => {
-    return new Promise((resolve, reject) => {
-        if (auth2) {
-            resolve(auth2);
-        } else {
-            if (!loadingPromise)
-                loadingPromise = onGapiLoadPromise(client_id);
-            loadingPromise.then(auth2 => {
-                resolve(auth2);
-            })
-        }
-    })
+const loadingAuth2 = (client_id) => {
+    if (auth2) {
+        return Promise.resolve(auth2);
+    } else {
+        if (!loadingPromise)
+            loadingPromise = onGapiLoadPromise(client_id);
+        return loadingPromise;
+    }
 }
 
 const load = (client_id) => {
     return Promise.all(
-        [createCallback(client_id),
-        createScript()]).then(results => {
+        [loadingAuth2(client_id), createScript()])
+        .then(results => {
             return results[0];
         });
 }
 
-const wrapper = (f, method, isProperty) => {
+const wrapper = (f, method) => {
     if (f)
-        return isProperty ? f[method] : f[method]();
+        return f[method]();
     else {
         const err = { err: 'Script not loaded correctly, did you added the plugin or the client_id to the component?' };
-
-        return isProperty ? { get: () => err } : Promise.reject(err);
+        return Promise.reject(err);
     }
 }
 
 const signIn = () => wrapper(auth2, 'signIn');
 
 const signOut = () => wrapper(auth2, 'signOut');
-
-export const isSignedIn = () => wrapper(auth2, 'isSignedIn', true).get();
 
 export default {
     load,

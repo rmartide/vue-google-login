@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { GoogleSignIn, isSignedIn } from '../src/';
+import { GoogleSignIn } from '../src/';
 const CLIENT_ID = "672275288589-gdg4j010jalhp5n6gh45333dhuq69liv.apps.googleusercontent.com";
 import Vue from 'vue';
 
@@ -32,12 +32,6 @@ export default {
             Vue.GoogleAuth.then(auth2 => {
                 console.log(auth2.isSignedIn.get());
             })
-            /* 
-            // console.log(Vue.GoogleAuth.isSignedIn.get());
-            const auth2 = await Vue.GoogleAuth;
-            console.log(auth2.isSignedIn.get());
-            
-            */
         }
     }
 }
