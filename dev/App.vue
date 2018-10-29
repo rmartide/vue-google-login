@@ -1,7 +1,7 @@
 <template>
     <div>
         <GoogleLogin :client_id="client_id" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
-        <GoogleLogin :client_id="client_id" :signOut=true class="button-style">Logout</GoogleLogin>
+        <GoogleLogin :client_id="client_id" :logoutButton=true class="button-style">Logout</GoogleLogin>
         <button @click="handleClick">isLoggedIn</button>
     </div>
 </template>
@@ -30,6 +30,7 @@ export default {
         },
         handleClick() {
             Vue.GoogleAuth.then(auth2 => {
+            console.log('???');
                 console.log(auth2.isSignedIn.get());
             })
         }

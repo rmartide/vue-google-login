@@ -23,14 +23,14 @@ export default {
             type: Function,
             default: () => { }
         },
-        signOut: {
+        logoutButton: {
             type: Boolean,
             default: false
         }
     },
     methods: {
         handleClick() {
-            const method = this.signOut ? 'signOut' : 'signIn';
+            const method = this.logoutButton ? 'signOut' : 'signIn';
             GoogleAuth[method]().then(result => {
                 return this.onSuccess(result);
             }).catch(err => {

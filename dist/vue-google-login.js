@@ -98,7 +98,7 @@
           type: Function,
           default: function _default() {}
         },
-        signOut: {
+        logoutButton: {
           type: Boolean,
           default: false
         }
@@ -107,7 +107,7 @@
         handleClick: function handleClick() {
           var _this = this;
 
-          var method = this.signOut ? 'signOut' : 'signIn';
+          var method = this.logoutButton ? 'signOut' : 'signIn';
           GoogleAuth[method]().then(function (result) {
             return _this.onSuccess(result);
           }).catch(function (err) {
@@ -143,7 +143,7 @@
       /* style */
       const __vue_inject_styles__ = function (inject) {
         if (!inject) return
-        inject("data-v-341acafd_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"GoogleLogin.vue"}, media: undefined });
+        inject("data-v-93aeb9a2_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"GoogleLogin.vue"}, media: undefined });
 
       };
       /* scoped */
