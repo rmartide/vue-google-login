@@ -6,13 +6,9 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'vue-google-login.js',
-        libraryTarget: 'umd',
-        library: 'VueGoogleLogin'
+        libraryTarget: 'umd'
     },
-    mode:'production',
-    devServer: {
-        contentBase: './dev'
-    },
+    mode: 'production',
     module: {
         rules: [
             {
@@ -24,7 +20,16 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        presets: ['@babel/preset-env'],
+                        "presets": [
+                            [
+                                "@babel/preset-env",
+                                {
+                                    "targets": {
+                                        "esmodules": false
+                                    }
+                                }
+                            ]
+                        ]
                     }
                 }
             }
@@ -36,20 +41,23 @@ module.exports = {
     plugins: [
         new VueLoaderPlugin()
     ],
+    externals: {
+        vue: 'Vue'
+    },
     // this hides a lot of useless info
     stats: {
-      errorDetails: true,
-      assets: true,
-      children: false,
-      chunks: false,
-      hash: false,
-      modules: false,
-      publicPath: false,
-      timings: true,
-      version: false,
-      warnings: true,
-      colors: {
-        green: '\u001b[32m'
-      }
+        errorDetails: true,
+        assets: true,
+        children: false,
+        chunks: false,
+        hash: false,
+        modules: false,
+        publicPath: false,
+        timings: true,
+        version: false,
+        warnings: true,
+        colors: {
+            green: '\u001b[32m'
+        }
     }
 }
