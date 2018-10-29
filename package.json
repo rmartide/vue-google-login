@@ -2,12 +2,12 @@
   "name": "vue-google-login",
   "version": "1.0.0",
   "description": "Button to login with google with really simple setup",
-  "main": "dist/vue-google-login.js",
+  "main": "dist/vue-google-login.min.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.dev.js --open --hot",
     "build": "webpack --config webpack.config.prod.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bili": "bili --plugin vue --vue.css dist/style.css --file vue-google-login.js --format umd --name \"vue-google-login\"",
+    "bili": "bili --plugin vue --vue.css dist/style.css --format umd,umd-min --module-name \"vue-google-login\"",
     "babel": "babel src --out-dir lib"
   },
   "repository": {
