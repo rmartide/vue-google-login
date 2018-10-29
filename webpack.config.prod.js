@@ -6,7 +6,9 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'vue-google-login.js',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
+        library: 'VueGoogleLogin',
+        umdNamedDefine: true
     },
     mode: 'production',
     module: {
@@ -31,7 +33,8 @@ module.exports = {
                             ]
                         ]
                     }
-                }
+                },
+                exclude: /node_modules/
             }
         ]
     },

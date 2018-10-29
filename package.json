@@ -6,7 +6,9 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.dev.js --open --hot",
     "build": "webpack --config webpack.config.prod.js --progress",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bili": "bili --plugin vue --vue.css dist/style.css --file vue-google-login.js --format umd --name \"vue-google-login\"",
+    "babel": "babel src --out-dir lib"
   },
   "repository": {
     "type": "git",
@@ -26,14 +28,20 @@
   },
   "homepage": "https://rmartide.github.io/vue-google-login/",
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "babel-loader": "^8.0.4",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "bili": "^3.1.2",
     "css-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.9.4",
+    "rollup": "^0.66.6",
+    "rollup-plugin-vue": "^4.3.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.0.1",
     "vue": "^2.5.17",
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.17",

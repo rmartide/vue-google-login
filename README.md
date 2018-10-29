@@ -29,14 +29,14 @@ If you want to have access to the auth api then you need add the plugin.
 ## Usage
 
 ```js
-    // It can also be imported as { GoogleSignIn }
-    import GoogleSignIn from 'vue-google-login';
+    // It can also be imported as { GoogleLogin }
+    import GoogleLogin from 'vue-google-login';
 
     // Button to signIn
-    <GoogleSignIn :client_id="client_id" :onSuccess="onSuccess" :onFailure="onFailure">Sign in</GoogleSignIn>
+    <GoogleLogin :client_id="client_id" :onSuccess="onSuccess" :onFailure="onFailure">Sign in</GoogleLogin>
 
     // Button to signOut
-    <GoogleSignIn :client_id="client_id" :signOut=true>Sign out</GoogleSignIn>
+    <GoogleLogin :client_id="client_id" :signOut=true>Sign out</GoogleLogin>
     
 ```
 
