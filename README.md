@@ -20,7 +20,7 @@ If you want to have access to the auth api then you need add the plugin.
     onFailure: Function,
     // It determines if the button is for logging in or for logging out.
     // By default is false so you only need to add it for the sign out button
-    logout: Boolean
+    logoutButton: Boolean
 }
 ```
 
