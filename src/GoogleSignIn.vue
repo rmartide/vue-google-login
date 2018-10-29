@@ -43,7 +43,9 @@ export default {
         }
     },
     mounted() {
-        GoogleAuth.load(this.client_id);
+        GoogleAuth.load(this.client_id).catch(err => {
+            console.log(err);
+        });
     }
 }
 </script>
