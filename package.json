@@ -16,10 +16,13 @@
   },
   "keywords": [
     "vue",
-    "google",
-    "signin",
-    "login",
-    "sign-in"
+    "vue-component",
+    "google-login",
+    "google-signin",
+    "google-sign-in",
+    "google login",
+    "google signin",
+    "google sign-in"
   ],
   "author": "Rodrigo Martín de Lamo",
   "license": "MIT",
