@@ -60,6 +60,8 @@ Even if it is a component you can think about it as a button, you can add classe
 
 ## Auth api
 
+This is completely optional. It's just to have access to the Auth api. It is not needed to use the buttons.
+
 First import the plugin
 
 ```js
