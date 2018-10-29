@@ -7,13 +7,9 @@
 <script>
 
 import GoogleAuth from './GoogleAuth';
-import GoogleLogo from './GoogleLogo.vue';
 
 export default {
     name: 'GoogleSignIn',
-    components: {
-        GoogleLogo
-    },
     props: {
         client_id: {
             type: String,
