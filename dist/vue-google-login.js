@@ -1,1 +1,287 @@
-!function(t,e){if("object"==typeof exports&&"object"==typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var n=e();for(var o in n)("object"==typeof exports?exports:t)[o]=n[o]}}(window,function(){return function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)n.d(o,r,function(e){return t[e]}.bind(null,r));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=2)}([function(t,e){},function(t,e,n){"use strict";var o=n(0);n.n(o).a},function(t,e,n){"use strict";n.r(e);var o,r,i=function(){var t=this.$createElement;return(this._self._c||t)("button",{on:{click:this.handleClick}},[this._t("default")],2)};i._withStripped=!0;var u=function(t){return o?Promise.resolve(o):(r||(r=function(t){return new Promise(function(e,n){window.onGapiLoad=function(){window.gapi.load("auth2",function(){try{o=window.gapi.auth2.init({client_id:t})}catch(t){n({err:"client_id missing or is incorrect, did you add it to the component or plugin?"})}e(o)})}})}(t)),r)},c=function(t,e){if(t)return t[e]();return Promise.reject({err:"Script not loaded correctly, did you added the plugin or the client_id to the component?"})},s={load:function(t){return Promise.all([u(t),new Promise(function(t,e){if(!document.getElementById("auth2_script_id")){var n=document.createElement("script");n.setAttribute("src","https://apis.google.com/js/platform.js?onload=onGapiLoad"),n.setAttribute("async",!0),n.setAttribute("defer","defer"),n.setAttribute("id","auth2_script_id"),document.head.appendChild(n)}t()})]).then(function(t){return t[0]})},signIn:function(){return c(o,"signIn")},signOut:function(){return c(o,"signOut")}},d={name:"GoogleSignIn",props:{client_id:{type:String,required:!0},onSuccess:{type:Function,default:function(){}},onFailure:{type:Function,default:function(){}},signOut:{type:Boolean,default:!1}},methods:{handleClick:function(){var t=this,e=this.signOut?"signOut":"signIn";s[e]().then(function(e){return t.onSuccess(e)}).catch(function(e){return t.onFailure(e)})}},mounted:function(){s.load(this.client_id).catch(function(t){console.log(t)})}};n(1);var a=function(t,e,n,o,r,i,u,c){var s,d="function"==typeof t?t.options:t;if(e&&(d.render=e,d.staticRenderFns=n,d._compiled=!0),o&&(d.functional=!0),i&&(d._scopeId="data-v-"+i),u?(s=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),r&&r.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(u)},d._ssrRegister=s):r&&(s=c?function(){r.call(this,this.$root.$options.shadowRoot)}:r),s)if(d.functional){d._injectStyles=s;var a=d.render;d.render=function(t,e){return s.call(e),a(t,e)}}else{var l=d.beforeCreate;d.beforeCreate=l?[].concat(l,s):[s]}return{exports:t,options:d}}(d,i,[],!1,null,null,null);a.options.__file="src/GoogleSignIn.vue";var l=a.exports,f={install:function(t,e){var n=e.client_id;t.GoogleAuth=s.load(n)}};n.d(e,"default",function(){return l}),n.d(e,"GoogleSignIn",function(){return l}),n.d(e,"LoaderPlugin",function(){return f})}])});
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (factory((global.vueGoogleLogin = {})));
+}(this, (function (exports) { 'use strict';
+
+    var auth2;
+    var loadingPromise;
+
+    var createScript = function createScript() {
+      return new Promise(function (resolve, reject) {
+        var el = document.getElementById('auth2_script_id');
+
+        if (!el) {
+          var gplatformScript = document.createElement('script');
+          gplatformScript.setAttribute('src', 'https://apis.google.com/js/platform.js?onload=onGapiLoad');
+          gplatformScript.setAttribute("async", true);
+          gplatformScript.setAttribute("defer", "defer");
+          gplatformScript.setAttribute("id", "auth2_script_id");
+          document.head.appendChild(gplatformScript);
+        }
+
+        resolve();
+      });
+    };
+
+    var onGapiLoadPromise = function onGapiLoadPromise(client_id) {
+      return new Promise(function (resolve, reject) {
+        window.onGapiLoad = function () {
+          window.gapi.load('auth2', function () {
+            try {
+              auth2 = window.gapi.auth2.init({
+                client_id: client_id
+              });
+            } catch (err) {
+              reject({
+                err: 'client_id missing or is incorrect, did you add it to the component or plugin?'
+              });
+            }
+
+            resolve(auth2);
+          });
+        };
+      });
+    };
+
+    var loadingAuth2 = function loadingAuth2(client_id) {
+      if (auth2) {
+        return Promise.resolve(auth2);
+      } else {
+        if (!loadingPromise) loadingPromise = onGapiLoadPromise(client_id);
+        return loadingPromise;
+      }
+    };
+
+    var load = function load(client_id) {
+      return Promise.all([loadingAuth2(client_id), createScript()]).then(function (results) {
+        return results[0];
+      });
+    };
+
+    var wrapper = function wrapper(f, method) {
+      if (f) return f[method]();else {
+        var err = {
+          err: 'Script not loaded correctly, did you added the plugin or the client_id to the component?'
+        };
+        return Promise.reject(err);
+      }
+    };
+
+    var signIn = function signIn() {
+      return wrapper(auth2, 'signIn');
+    };
+
+    var signOut = function signOut() {
+      return wrapper(auth2, 'signOut');
+    };
+
+    var GoogleAuth = {
+      load: load,
+      signIn: signIn,
+      signOut: signOut
+    };
+
+    //
+    var script = {
+      name: 'GoogleLogin',
+      props: {
+        client_id: {
+          type: String,
+          required: true
+        },
+        onSuccess: {
+          type: Function,
+          default: function _default() {}
+        },
+        onFailure: {
+          type: Function,
+          default: function _default() {}
+        },
+        signOut: {
+          type: Boolean,
+          default: false
+        }
+      },
+      methods: {
+        handleClick: function handleClick() {
+          var _this = this;
+
+          var method = this.signOut ? 'signOut' : 'signIn';
+          GoogleAuth[method]().then(function (result) {
+            return _this.onSuccess(result);
+          }).catch(function (err) {
+            return _this.onFailure(err);
+          });
+        }
+      },
+      mounted: function mounted() {
+        GoogleAuth.load(this.client_id).catch(function (err) {
+          console.log(err);
+        });
+      }
+    };
+
+    /* script */
+                const __vue_script__ = script;
+                
+    /* template */
+    var __vue_render__ = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c(
+        "button",
+        { on: { click: _vm.handleClick } },
+        [_vm._t("default")],
+        2
+      )
+    };
+    var __vue_staticRenderFns__ = [];
+    __vue_render__._withStripped = true;
+
+      /* style */
+      const __vue_inject_styles__ = function (inject) {
+        if (!inject) return
+        inject("data-v-341acafd_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"GoogleLogin.vue"}, media: undefined });
+
+      };
+      /* scoped */
+      const __vue_scope_id__ = undefined;
+      /* module identifier */
+      const __vue_module_identifier__ = undefined;
+      /* functional template */
+      const __vue_is_functional_template__ = false;
+      /* component normalizer */
+      function __vue_normalize__(
+        template, style, script$$1,
+        scope, functional, moduleIdentifier,
+        createInjector, createInjectorSSR
+      ) {
+        const component = (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {};
+
+        // For security concerns, we use only base name in production mode.
+        component.__file = "C:\\Projects\\Vue\\vue-google-login\\src\\GoogleLogin.vue";
+
+        if (!component.render) {
+          component.render = template.render;
+          component.staticRenderFns = template.staticRenderFns;
+          component._compiled = true;
+
+          if (functional) component.functional = true;
+        }
+
+        component._scopeId = scope;
+
+        {
+          let hook;
+          if (style) {
+            hook = function(context) {
+              style.call(this, createInjector(context));
+            };
+          }
+
+          if (hook !== undefined) {
+            if (component.functional) {
+              // register for functional component in vue file
+              const originalRender = component.render;
+              component.render = function renderWithStyleInjection(h, context) {
+                hook.call(context);
+                return originalRender(h, context)
+              };
+            } else {
+              // inject component registration as beforeCreate hook
+              const existing = component.beforeCreate;
+              component.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+            }
+          }
+        }
+
+        return component
+      }
+      /* style inject */
+      function __vue_create_injector__() {
+        const head = document.head || document.getElementsByTagName('head')[0];
+        const styles = __vue_create_injector__.styles || (__vue_create_injector__.styles = {});
+        const isOldIE =
+          typeof navigator !== 'undefined' &&
+          /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+
+        return function addStyle(id, css) {
+          if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return // SSR styles are present.
+
+          const group = isOldIE ? css.media || 'default' : id;
+          const style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
+
+          if (!style.ids.includes(id)) {
+            let code = css.source;
+            let index = style.ids.length;
+
+            style.ids.push(id);
+
+            if (isOldIE) {
+              style.element = style.element || document.querySelector('style[data-group=' + group + ']');
+            }
+
+            if (!style.element) {
+              const el = style.element = document.createElement('style');
+              el.type = 'text/css';
+
+              if (css.media) el.setAttribute('media', css.media);
+              if (isOldIE) {
+                el.setAttribute('data-group', group);
+                el.setAttribute('data-next-index', '0');
+              }
+
+              head.appendChild(el);
+            }
+
+            if (isOldIE) {
+              index = parseInt(style.element.getAttribute('data-next-index'));
+              style.element.setAttribute('data-next-index', index + 1);
+            }
+
+            if (style.element.styleSheet) {
+              style.parts.push(code);
+              style.element.styleSheet.cssText = style.parts
+                .filter(Boolean)
+                .join('\n');
+            } else {
+              const textNode = document.createTextNode(code);
+              const nodes = style.element.childNodes;
+              if (nodes[index]) style.element.removeChild(nodes[index]);
+              if (nodes.length) style.element.insertBefore(textNode, nodes[index]);
+              else style.element.appendChild(textNode);
+            }
+          }
+        }
+      }
+      /* style inject SSR */
+      
+
+      
+      var GoogleLogin = __vue_normalize__(
+        { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
+        __vue_inject_styles__,
+        __vue_script__,
+        __vue_scope_id__,
+        __vue_is_functional_template__,
+        __vue_module_identifier__,
+        __vue_create_injector__,
+        undefined
+      )
+
+    var LoaderPlugin = {
+      install: function install(Vue, _ref) {
+        var client_id = _ref.client_id;
+        Vue.GoogleAuth = GoogleAuth.load(client_id);
+      }
+    };
+
+    exports.default = GoogleLogin;
+    exports.GoogleLogin = GoogleLogin;
+    exports.LoaderPlugin = LoaderPlugin;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
+
+})));

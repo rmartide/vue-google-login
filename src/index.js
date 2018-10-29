@@ -1,3 +1,9 @@
-export { default } from './GoogleSignIn.vue';
-export { default as GoogleSignIn } from './GoogleSignIn.vue';
-export { default as LoaderPlugin } from './LoaderPlugin';
+import GoogleLogin from './GoogleLogin.vue';
+import LoaderPlugin from './LoaderPlugin';
+
+export default GoogleLogin;
+
+export {
+    GoogleLogin,
+    LoaderPlugin
+}

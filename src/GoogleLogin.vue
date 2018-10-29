@@ -9,7 +9,7 @@
 import GoogleAuth from './GoogleAuth';
 
 export default {
-    name: 'GoogleSignIn',
+    name: 'GoogleLogin',
     props: {
         client_id: {
             type: String,
