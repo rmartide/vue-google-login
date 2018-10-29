@@ -19,7 +19,7 @@ If you want to have access to the auth api then you need add the plugin.
     // It gets called if the action (login/logout) fails.
     onFailure: Function,
     // It determines if the button is for logging in or for logging out.
-    // By default is false so you only need to add it for the sign out button
+    // By default is false so you only need to add it for the logout button
     logoutButton: Boolean
 }
 ```
@@ -31,10 +31,10 @@ If you want to have access to the auth api then you need add the plugin.
     import GoogleLogin from 'vue-google-login';
 
     // Button to login
-    <GoogleLogin :client_id="client_id" :onSuccess="onSuccess" :onFailure="onFailure">Sign in</GoogleLogin>
+    <GoogleLogin :client_id="client_id" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
 
     // Button to logout
-    <GoogleLogin :client_id="client_id" :logoutButton=true>Sign out</GoogleLogin>
+    <GoogleLogin :client_id="client_id" :logoutButton=true>Logout</GoogleLogin>
     
 ```
 

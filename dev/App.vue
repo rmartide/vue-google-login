@@ -31,7 +31,6 @@ export default {
         },
         handleClick() {
             Vue.GoogleAuth.then(auth2 => {
-            console.log('???');
                 console.log(auth2.isSignedIn.get());
             })
         }
