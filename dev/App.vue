@@ -7,7 +7,8 @@
 </template>
 
 <script>
-import GoogleLogin from '../dist/vue-google-login.min.js';
+import GoogleLogin from "../dist/vue-google-login";
+// import GoogleLogin from '../src/';
 const CLIENT_ID = "672275288589-gdg4j010jalhp5n6gh45333dhuq69liv.apps.googleusercontent.com";
 import Vue from 'vue';
 

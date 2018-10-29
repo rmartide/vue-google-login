@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import { LoaderPlugin } from '../dist/vue-google-login';
+// import { LoaderPlugin } from '../src/';
 Vue.config.productionTip = false
 const CLIENT_ID = "672275288589-gdg4j010jalhp5n6gh45333dhuq69liv.apps.googleusercontent.com";
 
