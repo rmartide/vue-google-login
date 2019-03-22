@@ -11,8 +11,8 @@ import GoogleAuth from './GoogleAuth';
 export default {
     name: 'GoogleLogin',
     props: {
-        client_id: {
-            type: String,
+        params: {
+            type: Object,
             required: true
         },
         onSuccess: {
@@ -39,7 +39,7 @@ export default {
         }
     },
     mounted() {
-        GoogleAuth.load(this.client_id).catch(err => {
+        GoogleAuth.load(this.params).catch(err => {
             console.log(err);
         });
     }

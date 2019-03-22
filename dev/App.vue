@@ -1,7 +1,7 @@
 <template>
     <div>
-        <GoogleLogin :client_id="client_id" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
-        <GoogleLogin :client_id="client_id" :logoutButton=true class="button-style">Logout</GoogleLogin>
+        <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
+        <GoogleLogin :params="params" :logoutButton=true class="button-style">Logout</GoogleLogin>
         <button @click="handleClick">isLoggedIn</button>
     </div>
 </template>
@@ -16,7 +16,9 @@ export default {
     name: 'App',
     data() {
         return {
-            client_id: CLIENT_ID
+            params: {
+                client_id: CLIENT_ID
+            }
         }
     },
     components: {

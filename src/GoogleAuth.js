@@ -17,16 +17,16 @@ const createScript = () => {
 
 }
 
-const onGapiLoadPromise = (client_id) => {
+const onGapiLoadPromise = (params) => {
     return new Promise((resolve, reject) => {
         window.onGapiLoad = () => {
             window.gapi.load('auth2', () => {
                 try {
                     auth2 = window.gapi.auth2.init({
-                        client_id: client_id,
+                        ...params
                     });
                 } catch (err) {
-                    reject({ err: 'client_id missing or is incorrect, did you add it to the component or plugin?' })
+                    reject({ err: 'client_id missing or is incorrect, or if you added extra params maybe they are written incorrectly, did you add it to the component or plugin?' })
                 }
                 resolve(auth2);
             })
@@ -34,19 +34,19 @@ const onGapiLoadPromise = (client_id) => {
     })
 }
 
-const loadingAuth2 = (client_id) => {
+const loadingAuth2 = (params) => {
     if (auth2) {
         return Promise.resolve(auth2);
     } else {
         if (!loadingPromise)
-            loadingPromise = onGapiLoadPromise(client_id);
+            loadingPromise = onGapiLoadPromise(params);
         return loadingPromise;
     }
 }
 
-const load = (client_id) => {
+const load = (params) => {
     return Promise.all(
-        [loadingAuth2(client_id), createScript()])
+        [loadingAuth2(params), createScript()])
         .then(results => {
             return results[0];
         });

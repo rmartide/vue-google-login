@@ -1,287 +1,294 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global['vue-google-login'] = {})));
-}(this, (function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (global = global || self, factory(global['vue-google-login'] = {}));
+}(this, function (exports) { 'use strict';
 
-    var auth2;
-    var loadingPromise;
-
-    var createScript = function createScript() {
-      return new Promise(function (resolve, reject) {
-        var el = document.getElementById('auth2_script_id');
-
-        if (!el) {
-          var gplatformScript = document.createElement('script');
-          gplatformScript.setAttribute('src', 'https://apis.google.com/js/platform.js?onload=onGapiLoad');
-          gplatformScript.setAttribute("async", true);
-          gplatformScript.setAttribute("defer", "defer");
-          gplatformScript.setAttribute("id", "auth2_script_id");
-          document.head.appendChild(gplatformScript);
-        }
-
-        resolve();
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
       });
-    };
+    } else {
+      obj[key] = value;
+    }
 
-    var onGapiLoadPromise = function onGapiLoadPromise(client_id) {
-      return new Promise(function (resolve, reject) {
-        window.onGapiLoad = function () {
-          window.gapi.load('auth2', function () {
-            try {
-              auth2 = window.gapi.auth2.init({
-                client_id: client_id
-              });
-            } catch (err) {
-              reject({
-                err: 'client_id missing or is incorrect, did you add it to the component or plugin?'
-              });
-            }
+    return obj;
+  }
 
-            resolve(auth2);
-          });
-        };
-      });
-    };
+  function _objectSpread(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+      var ownKeys = Object.keys(source);
 
-    var loadingAuth2 = function loadingAuth2(client_id) {
-      if (auth2) {
-        return Promise.resolve(auth2);
-      } else {
-        if (!loadingPromise) loadingPromise = onGapiLoadPromise(client_id);
-        return loadingPromise;
+      if (typeof Object.getOwnPropertySymbols === 'function') {
+        ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+        }));
       }
-    };
 
-    var load = function load(client_id) {
-      return Promise.all([loadingAuth2(client_id), createScript()]).then(function (results) {
-        return results[0];
+      ownKeys.forEach(function (key) {
+        _defineProperty(target, key, source[key]);
       });
-    };
+    }
 
-    var wrapper = function wrapper(f, method) {
-      if (f) return f[method]();else {
-        var err = {
-          err: 'Script not loaded correctly, did you added the plugin or the client_id to the component?'
-        };
-        return Promise.reject(err);
+    return target;
+  }
+
+  var auth2;
+  var loadingPromise;
+
+  var createScript = function createScript() {
+    return new Promise(function (resolve, reject) {
+      var el = document.getElementById('auth2_script_id');
+
+      if (!el) {
+        var gplatformScript = document.createElement('script');
+        gplatformScript.setAttribute('src', 'https://apis.google.com/js/platform.js?onload=onGapiLoad');
+        gplatformScript.setAttribute("async", true);
+        gplatformScript.setAttribute("defer", "defer");
+        gplatformScript.setAttribute("id", "auth2_script_id");
+        document.head.appendChild(gplatformScript);
       }
-    };
 
-    var signIn = function signIn() {
-      return wrapper(auth2, 'signIn');
-    };
+      resolve();
+    });
+  };
 
-    var signOut = function signOut() {
-      return wrapper(auth2, 'signOut');
-    };
+  var onGapiLoadPromise = function onGapiLoadPromise(params) {
+    return new Promise(function (resolve, reject) {
+      window.onGapiLoad = function () {
+        window.gapi.load('auth2', function () {
+          try {
+            auth2 = window.gapi.auth2.init(_objectSpread({}, params));
+          } catch (err) {
+            reject({
+              err: 'client_id missing or is incorrect, or if you added extra params maybe they are written incorrectly, did you add it to the component or plugin?'
+            });
+          }
 
-    var GoogleAuth = {
-      load: load,
-      signIn: signIn,
-      signOut: signOut
-    };
+          resolve(auth2);
+        });
+      };
+    });
+  };
 
-    //
-    var script = {
-      name: 'GoogleLogin',
-      props: {
-        client_id: {
-          type: String,
-          required: true
-        },
-        onSuccess: {
-          type: Function,
-          default: function _default() {}
-        },
-        onFailure: {
-          type: Function,
-          default: function _default() {}
-        },
-        logoutButton: {
-          type: Boolean,
-          default: false
-        }
+  var loadingAuth2 = function loadingAuth2(params) {
+    if (auth2) {
+      return Promise.resolve(auth2);
+    } else {
+      if (!loadingPromise) loadingPromise = onGapiLoadPromise(params);
+      return loadingPromise;
+    }
+  };
+
+  var load = function load(params) {
+    return Promise.all([loadingAuth2(params), createScript()]).then(function (results) {
+      return results[0];
+    });
+  };
+
+  var wrapper = function wrapper(f, method) {
+    if (f) return f[method]();else {
+      var err = {
+        err: 'Script not loaded correctly, did you added the plugin or the client_id to the component?'
+      };
+      return Promise.reject(err);
+    }
+  };
+
+  var signIn = function signIn() {
+    return wrapper(auth2, 'signIn');
+  };
+
+  var signOut = function signOut() {
+    return wrapper(auth2, 'signOut');
+  };
+
+  var GoogleAuth = {
+    load: load,
+    signIn: signIn,
+    signOut: signOut
+  };
+
+  //
+  var script = {
+    name: 'GoogleLogin',
+    props: {
+      params: {
+        type: Object,
+        required: true
       },
-      methods: {
-        handleClick: function handleClick() {
-          var _this = this;
-
-          var method = this.logoutButton ? 'signOut' : 'signIn';
-          GoogleAuth[method]().then(function (result) {
-            return _this.onSuccess(result);
-          }).catch(function (err) {
-            return _this.onFailure(err);
-          });
-        }
+      onSuccess: {
+        type: Function,
+        default: function _default() {}
       },
-      mounted: function mounted() {
-        GoogleAuth.load(this.client_id).catch(function (err) {
-          console.log(err);
+      onFailure: {
+        type: Function,
+        default: function _default() {}
+      },
+      logoutButton: {
+        type: Boolean,
+        default: false
+      }
+    },
+    methods: {
+      handleClick: function handleClick() {
+        var _this = this;
+
+        var method = this.logoutButton ? 'signOut' : 'signIn';
+        GoogleAuth[method]().then(function (result) {
+          return _this.onSuccess(result);
+        }).catch(function (err) {
+          return _this.onFailure(err);
         });
       }
-    };
+    },
+    mounted: function mounted() {
+      GoogleAuth.load(this.params).catch(function (err) {
+        console.log(err);
+      });
+    }
+  };
 
-    /* script */
-                const __vue_script__ = script;
-                
-    /* template */
-    var __vue_render__ = function() {
-      var _vm = this;
-      var _h = _vm.$createElement;
-      var _c = _vm._self._c || _h;
-      return _c(
-        "button",
-        { on: { click: _vm.handleClick } },
-        [_vm._t("default")],
-        2
-      )
-    };
-    var __vue_staticRenderFns__ = [];
-    __vue_render__._withStripped = true;
+  function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
+  /* server only */
+  , shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof shadowMode !== 'boolean') {
+      createInjectorSSR = createInjector;
+      createInjector = shadowMode;
+      shadowMode = false;
+    } // Vue.extend constructor export interop.
 
-      /* style */
-      const __vue_inject_styles__ = function (inject) {
-        if (!inject) return
-        inject("data-v-93aeb9a2_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"GoogleLogin.vue"}, media: undefined });
 
+    var options = typeof script === 'function' ? script.options : script; // render functions
+
+    if (template && template.render) {
+      options.render = template.render;
+      options.staticRenderFns = template.staticRenderFns;
+      options._compiled = true; // functional template
+
+      if (isFunctionalTemplate) {
+        options.functional = true;
+      }
+    } // scopedId
+
+
+    if (scopeId) {
+      options._scopeId = scopeId;
+    }
+
+    var hook;
+
+    if (moduleIdentifier) {
+      // server build
+      hook = function hook(context) {
+        // 2.3 injection
+        context = context || // cached call
+        this.$vnode && this.$vnode.ssrContext || // stateful
+        this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+        // 2.2 with runInNewContext: true
+
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+          context = __VUE_SSR_CONTEXT__;
+        } // inject component styles
+
+
+        if (style) {
+          style.call(this, createInjectorSSR(context));
+        } // register component module identifier for async chunk inference
+
+
+        if (context && context._registeredComponents) {
+          context._registeredComponents.add(moduleIdentifier);
+        }
+      }; // used by ssr in case component is cached and beforeCreate
+      // never gets called
+
+
+      options._ssrRegister = hook;
+    } else if (style) {
+      hook = shadowMode ? function () {
+        style.call(this, createInjectorShadow(this.$root.$options.shadowRoot));
+      } : function (context) {
+        style.call(this, createInjector(context));
       };
-      /* scoped */
-      const __vue_scope_id__ = undefined;
-      /* module identifier */
-      const __vue_module_identifier__ = undefined;
-      /* functional template */
-      const __vue_is_functional_template__ = false;
-      /* component normalizer */
-      function __vue_normalize__(
-        template, style, script$$1,
-        scope, functional, moduleIdentifier,
-        createInjector, createInjectorSSR
-      ) {
-        const component = (typeof script$$1 === 'function' ? script$$1.options : script$$1) || {};
+    }
 
-        // For security concerns, we use only base name in production mode.
-        component.__file = "C:\\Projects\\Vue\\vue-google-login\\src\\GoogleLogin.vue";
+    if (hook) {
+      if (options.functional) {
+        // register for functional component in vue file
+        var originalRender = options.render;
 
-        if (!component.render) {
-          component.render = template.render;
-          component.staticRenderFns = template.staticRenderFns;
-          component._compiled = true;
-
-          if (functional) component.functional = true;
-        }
-
-        component._scopeId = scope;
-
-        {
-          let hook;
-          if (style) {
-            hook = function(context) {
-              style.call(this, createInjector(context));
-            };
-          }
-
-          if (hook !== undefined) {
-            if (component.functional) {
-              // register for functional component in vue file
-              const originalRender = component.render;
-              component.render = function renderWithStyleInjection(h, context) {
-                hook.call(context);
-                return originalRender(h, context)
-              };
-            } else {
-              // inject component registration as beforeCreate hook
-              const existing = component.beforeCreate;
-              component.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-            }
-          }
-        }
-
-        return component
+        options.render = function renderWithStyleInjection(h, context) {
+          hook.call(context);
+          return originalRender(h, context);
+        };
+      } else {
+        // inject component registration as beforeCreate hook
+        var existing = options.beforeCreate;
+        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
       }
-      /* style inject */
-      function __vue_create_injector__() {
-        const head = document.head || document.getElementsByTagName('head')[0];
-        const styles = __vue_create_injector__.styles || (__vue_create_injector__.styles = {});
-        const isOldIE =
-          typeof navigator !== 'undefined' &&
-          /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+    }
 
-        return function addStyle(id, css) {
-          if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return // SSR styles are present.
+    return script;
+  }
 
-          const group = isOldIE ? css.media || 'default' : id;
-          const style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
+  var normalizeComponent_1 = normalizeComponent;
 
-          if (!style.ids.includes(id)) {
-            let code = css.source;
-            let index = style.ids.length;
+  /* script */
+  var __vue_script__ = script;
+  /* template */
 
-            style.ids.push(id);
+  var __vue_render__ = function __vue_render__() {
+    var _vm = this;
 
-            if (isOldIE) {
-              style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-            }
+    var _h = _vm.$createElement;
 
-            if (!style.element) {
-              const el = style.element = document.createElement('style');
-              el.type = 'text/css';
+    var _c = _vm._self._c || _h;
 
-              if (css.media) el.setAttribute('media', css.media);
-              if (isOldIE) {
-                el.setAttribute('data-group', group);
-                el.setAttribute('data-next-index', '0');
-              }
-
-              head.appendChild(el);
-            }
-
-            if (isOldIE) {
-              index = parseInt(style.element.getAttribute('data-next-index'));
-              style.element.setAttribute('data-next-index', index + 1);
-            }
-
-            if (style.element.styleSheet) {
-              style.parts.push(code);
-              style.element.styleSheet.cssText = style.parts
-                .filter(Boolean)
-                .join('\n');
-            } else {
-              const textNode = document.createTextNode(code);
-              const nodes = style.element.childNodes;
-              if (nodes[index]) style.element.removeChild(nodes[index]);
-              if (nodes.length) style.element.insertBefore(textNode, nodes[index]);
-              else style.element.appendChild(textNode);
-            }
-          }
-        }
+    return _c('button', {
+      on: {
+        "click": _vm.handleClick
       }
-      /* style inject SSR */
-      
+    }, [_vm._t("default")], 2);
+  };
 
-      
-      var GoogleLogin = __vue_normalize__(
-        { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
-        __vue_inject_styles__,
-        __vue_script__,
-        __vue_scope_id__,
-        __vue_is_functional_template__,
-        __vue_module_identifier__,
-        __vue_create_injector__,
-        undefined
-      )
+  var __vue_staticRenderFns__ = [];
+  /* style */
 
-    var LoaderPlugin = {
-      install: function install(Vue, _ref) {
-        var client_id = _ref.client_id;
-        Vue.GoogleAuth = GoogleAuth.load(client_id);
-      }
-    };
+  var __vue_inject_styles__ = undefined;
+  /* scoped */
 
-    exports.default = GoogleLogin;
-    exports.GoogleLogin = GoogleLogin;
-    exports.LoaderPlugin = LoaderPlugin;
+  var __vue_scope_id__ = undefined;
+  /* module identifier */
 
-    Object.defineProperty(exports, '__esModule', { value: true });
+  var __vue_module_identifier__ = undefined;
+  /* functional template */
 
-})));
+  var __vue_is_functional_template__ = false;
+  /* style inject */
+
+  /* style inject SSR */
+
+  var GoogleLogin = normalizeComponent_1({
+    render: __vue_render__,
+    staticRenderFns: __vue_staticRenderFns__
+  }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, undefined, undefined);
+
+  var LoaderPlugin = {
+    install: function install(Vue, params) {
+      Vue.GoogleAuth = GoogleAuth.load(params);
+    }
+  };
+
+  exports.GoogleLogin = GoogleLogin;
+  exports.LoaderPlugin = LoaderPlugin;
+  exports.default = GoogleLogin;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+}));
