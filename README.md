@@ -8,9 +8,9 @@ To use the login and logout buttons there is no installation needed, just import
 
 If you want to have access to the auth api then you need add the plugin.
 
-## Update (Important, breaking change for those using it prior to 1.0.4)
+## Update (Important, breaking change for those using it prior to 2.0.0)
 
-In 1.0.4 there has been a change to allow you to add the full auth api configuration.
+In 2.0.0 there has been a change to allow you to add the full auth api configuration.
 
 The only change it has to be done is instead of client_id the required prop is now params.
 
