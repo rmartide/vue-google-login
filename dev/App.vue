@@ -34,7 +34,14 @@ export default {
         handleClick() {
             Vue.GoogleAuth.then(auth2 => {
                 console.log(auth2.isSignedIn.get());
-            })
+            });
+
+            /* Vue.GoogleAuth.then(auth2 => {
+                console.log(auth2.isSignedIn.get());
+                auth2.signOut().then(() => {
+                    console.log(auth2.isSignedIn.get());
+                })
+            }); */
         }
     }
 }
