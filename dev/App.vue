@@ -1,6 +1,6 @@
 <template>
     <div>
-        <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
+        <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
         <GoogleLogin :params="params" :logoutButton=true class="button-style">Logout</GoogleLogin>
         <button @click="handleClick">isLoggedIn</button>
     </div>
@@ -18,6 +18,11 @@ export default {
         return {
             params: {
                 client_id: CLIENT_ID
+            },
+            renderParams: {
+                width: 250,
+                height: 50,
+                longtitle: true
             }
         }
     },

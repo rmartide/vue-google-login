@@ -29,10 +29,13 @@ Usage example updated down bellow.
     // It gets called if the action (login/logout) is successful.
     onSuccess: Function
     // It gets called if the action (login/logout) fails.
-    onFailure: Function,
+    onFailure: Function
     // It determines if the button is for logging in or for logging out.
     // By default is false so you only need to add it for the logout button
     logoutButton: Boolean
+    // Optional, if provided will call gapi.signin2.render with the provided params
+    // https://developers.google.com/identity/sign-in/web/reference#gapisignin2renderid-options
+    renderParams: Object
 
 ```
 
@@ -43,7 +46,7 @@ Usage example updated down bellow.
     import GoogleLogin from 'vue-google-login';
 
     // Button to login
-    <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
+    <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
 
     // Button to logout
     <GoogleLogin :params="params" :logoutButton=true>Logout</GoogleLogin>
@@ -55,6 +58,11 @@ Usage example updated down bellow.
                 // client_id is the only required property but you can add several more params, full list down bellow on the Auth api section
                 params: {
                     client_id: "xxxxxx"
+                },
+                renderParams: {
+                    width: 250,
+                    height: 50,
+                    longtitle: true
                 }
             }
         }

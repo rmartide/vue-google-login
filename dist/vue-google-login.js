@@ -115,6 +115,12 @@
   };
 
   //
+  //
+  //
+  //
+  //
+  //
+  var componentId = 0;
   var script = {
     name: 'GoogleLogin',
     props: {
@@ -133,7 +139,14 @@
       logoutButton: {
         type: Boolean,
         default: false
+      },
+      renderParams: {
+        type: Object,
+        required: false
       }
+    },
+    beforeCreate: function beforeCreate() {
+      this.id = "google-signin-btn-".concat(componentId++);
     },
     methods: {
       handleClick: function handleClick() {
@@ -148,7 +161,13 @@
       }
     },
     mounted: function mounted() {
-      GoogleAuth.load(this.params).catch(function (err) {
+      var _this2 = this;
+
+      GoogleAuth.load(this.params).then(function () {
+        if (_this2.renderParams) {
+          window.gapi.signin2.render(_this2.id, _this2.renderParams);
+        }
+      }).catch(function (err) {
         console.log(err);
       });
     }
@@ -251,6 +270,9 @@
     var _c = _vm._self._c || _h;
 
     return _c('button', {
+      attrs: {
+        "id": _vm.id
+      },
       on: {
         "click": _vm.handleClick
       }
