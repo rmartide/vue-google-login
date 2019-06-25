@@ -8,23 +8,21 @@ To use the login and logout buttons there is no installation needed, just import
 
 If you want to have access to the auth api then you need add the plugin.
 
-## Update (Important, breaking change for those using it prior to 2.0.0)
+## 2.0.1 update
 
-In 2.0.0 there has been a change to allow you to add the full auth api configuration.
+Added support to Edge (Thanks Magyarb)
 
-The only change it has to be done is instead of client_id the required prop is now params.
+Added option to render a sign-in button with google UI (Thanks TheTrueRandom)
 
-Params is an object whose properties set the configuration.
+## 2.0.0 update
 
-So if you don't want any aditional configuration only add the client_id property to params. 
-
-Usage example updated down bellow.
-
+Added support for the full auth api configuration.
 
 ## Props
 
 ```js
     // The Google Sign-In params configuration object. Required.
+    // https://developers.google.com/identity/sign-in/web/reference#gapiauth2clientconfig    
     params: Object
     // It gets called if the action (login/logout) is successful.
     onSuccess: Function
@@ -33,7 +31,7 @@ Usage example updated down bellow.
     // It determines if the button is for logging in or for logging out.
     // By default is false so you only need to add it for the logout button
     logoutButton: Boolean
-    // Optional, if provided will call gapi.signin2.render with the provided params
+    // Optional, if provided will call gapi.signin2.render with the provided params and render a button with google UI
     // https://developers.google.com/identity/sign-in/web/reference#gapisignin2renderid-options
     renderParams: Object
 
@@ -46,8 +44,19 @@ Usage example updated down bellow.
     import GoogleLogin from 'vue-google-login';
 
     // Button to login
-    <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
+    <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
+```
 
+![alt text](https://raw.githubusercontent.com/rmartide/vue-google-login/master/images/normal.png)
+
+```js
+    // Button to login with google ui rendered using the renderParams object
+    <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
+```
+
+![alt text](https://raw.githubusercontent.com/rmartide/vue-google-login/master/images/ui.png)
+
+```js
     // Button to logout
     <GoogleLogin :params="params" :logoutButton=true>Logout</GoogleLogin>
     
@@ -59,6 +68,7 @@ Usage example updated down bellow.
                 params: {
                     client_id: "xxxxxx"
                 },
+                // only needed if you want to render the button with the google ui
                 renderParams: {
                     width: 250,
                     height: 50,
