@@ -1,6 +1,8 @@
 <template>
     <div>
-        <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
+        <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
+        <br>
+        <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
         <GoogleLogin :params="params" :logoutButton=true class="button-style">Logout</GoogleLogin>
         <button @click="handleClick">isLoggedIn</button>
     </div>
