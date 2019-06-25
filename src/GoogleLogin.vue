@@ -1,11 +1,12 @@
 <template>
-    <button @click="handleClick">
+    <button @click="handleClick" :id="id">
         <slot></slot>
     </button>
 </template>
 
 <script>
 
+let componentId = 0;
 import GoogleAuth from './GoogleAuth';
 
 export default {
@@ -26,7 +27,14 @@ export default {
         logoutButton: {
             type: Boolean,
             default: false
+        },
+        renderParams: {
+            type: Object,
+            required: false
         }
+    },
+    beforeCreate() {
+        this.id = `google-signin-btn-${componentId ++}`;
     },
     methods: {
         handleClick() {
@@ -39,7 +47,11 @@ export default {
         }
     },
     mounted() {
-        GoogleAuth.load(this.params).catch(err => {
+        GoogleAuth.load(this.params).then(() => {
+            if (this.renderParams) {
+                window.gapi.signin2.render(this.id, this.renderParams);
+            }
+        }).catch(err => {
             console.log(err);
         });
     }
