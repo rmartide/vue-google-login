@@ -99,6 +99,8 @@ about the user and about the access token granted.
 
 Even if it is a component you can think about it as a button, you can add classes, inline styles, etc...
 
+Without renderParams is a button, with renderParams is a div since google injects the button so take it into account when adding styles to the component.
+
 
 ## Auth api
 
