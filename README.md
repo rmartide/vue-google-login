@@ -51,6 +51,8 @@ Added support for the full auth api configuration.
 
 ```js
     // Button to login with google ui rendered using the renderParams object
+    // The rendered button can't be use to logout since it is rendered by the google api and will only login
+    // If you add the logoutButton param to true it will show a normal button without styles
     <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
 ```
 
