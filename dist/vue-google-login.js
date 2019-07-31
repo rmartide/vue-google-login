@@ -88,7 +88,6 @@
     //
     //
     //
-    //
     var componentId = 0;
     var script = {
       name: 'GoogleLogin',
@@ -133,7 +132,7 @@
         var _this2 = this;
 
         GoogleAuth.load(this.params).then(function () {
-          if (_this2.renderParams) {
+          if (_this2.renderParams && _this2.logoutButton === false) {
             window.gapi.signin2.render(_this2.id, _this2.renderParams);
           }
         }).catch(function (err) {
