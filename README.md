@@ -61,7 +61,9 @@ Added support for the full auth api configuration.
 ```js
     // Button to logout
     <GoogleLogin :params="params" :logoutButton=true>Logout</GoogleLogin>
-    
+```
+
+```js
     export default {
         name: 'App',
         data() {
@@ -77,6 +79,9 @@ Added support for the full auth api configuration.
                     longtitle: true
                 }
             }
+        },
+        components: {
+            GoogleLogin
         }
     }
 
@@ -89,11 +94,13 @@ When the user successfully signs in, the callback will return an object that con
 about the user and about the access token granted.
 
 ```js
-    onSuccess(googleUser) {
-        console.log(googleUser);
+    methods: {
+        onSuccess(googleUser) {
+            console.log(googleUser);
 
-        // This only gets the user information: id, name, imageUrl and email
-        console.log(googleUser.getBasicProfile());
+            // This only gets the user information: id, name, imageUrl and email
+            console.log(googleUser.getBasicProfile());
+        }
     }
 ```
 
