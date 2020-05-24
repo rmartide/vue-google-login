@@ -1,5 +1,6 @@
 <template>
     <div>
+        <GoogleLogin :params="params" :offline="true" :onSuccess="onSuccess" :onFailure="onFailure">Get offline token</GoogleLogin>
         <GoogleLogin :params="params" :renderParams="renderParams" :onCurrentUser="onCurrentUser" :onSuccess="onSuccess" :onFailure="onFailure" :logoutButton=false>texto</GoogleLogin>
         <br>
         <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
