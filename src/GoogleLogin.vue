@@ -18,6 +18,10 @@ export default {
 			type: Object,
 			required: true
 		},
+		onCurrentUser: {
+			type: Function,
+			default: () => { }
+		},
 		onSuccess: {
 			type: Function,
 			default: () => { }
@@ -52,6 +56,9 @@ export default {
 		GoogleAuth.load(this.params).then(() => {
 			if (this.renderParams && this.logoutButton === false) {
 				window.gapi.signin2.render(this.id, this.renderParams);
+			}
+			if (GoogleAuth.isSignedIn()) {
+				this.onCurrentUser(GoogleAuth.currentUser());
 			}
 		}).catch(err => {
 			console.log(err);

@@ -65,8 +65,14 @@ const signIn = () => wrapper(auth2, 'signIn');
 
 const signOut = () => wrapper(auth2, 'signOut');
 
+const isSignedIn = () => wrapper(auth2.isSignedIn, 'get');
+
+const currentUser = () => wrapper(auth2.currentUser, 'get');
+
 export default {
     load,
     signIn,
-    signOut
+    signOut,
+    isSignedIn,
+    currentUser
 }
