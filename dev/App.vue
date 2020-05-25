@@ -1,6 +1,7 @@
 <template>
     <div>
-        <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure" :logoutButton=false>texto</GoogleLogin>
+        <GoogleLogin :params="params" :offline="true" :onSuccess="onSuccess" :onFailure="onFailure">Get offline token</GoogleLogin>
+        <GoogleLogin :params="params" :renderParams="renderParams" :onCurrentUser="onCurrentUser" :onSuccess="onSuccess" :onFailure="onFailure" :logoutButton=false>texto</GoogleLogin>
         <br>
         <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
         <GoogleLogin :params="params" :logoutButton=true class="button-style">Logout</GoogleLogin>
@@ -32,6 +33,9 @@ export default {
         GoogleLogin
     },
     methods: {
+        onCurrentUser(googleUser) {
+            console.log(googleUser);
+        },
         onSuccess(googleUser) {
             console.log(googleUser);
         },
