@@ -8,6 +8,10 @@ To use the login and logout buttons there is no installation needed, just import
 
 If you want to have access to the auth api then you need add the plugin.
 
+## 2.0.2 update (not yet published on npm)
+
+Added callback to get the current user without adding the plugin (Thanks rmoscuba)
+
 ## 2.0.1 update
 
 Added support to Edge (Thanks Magyarb)
@@ -139,6 +143,7 @@ This way we avoid having to worry about if the script has loaded yet or not.
 ```js
     Vue.GoogleAuth.then(auth2 => {
         console.log(auth2.isSignedIn.get());
+        console.log(auth2.currentUser.get())
     })
 ```
 [Full auth api methods](https://developers.google.com/identity/sign-in/web/reference#authentication)
