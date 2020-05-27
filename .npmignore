@@ -1,2 +1,11 @@
 .git
 node_modules
+dev
+images
+src
+webpack.config.dev.js
+webpack.config.prod.js
+bili.config.js
+_config.yml
+.babelrc
+.gitignore

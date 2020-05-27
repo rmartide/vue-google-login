@@ -1,9 +1,9 @@
 
 <template>
-		<div v-if="renderParams && !logoutButton" @click="handleClick" :id="id"></div>
-		<button v-else @click="handleClick" :id="id">
-			<slot></slot>
-		</button>
+	<div v-if="renderParams && !logoutButton" @click="handleClick" :id="id"></div>
+	<button v-else @click="handleClick" :id="id">
+		<slot></slot>
+	</button>
 </template>
 
 <script>
@@ -18,10 +18,10 @@ export default {
 			type: Object,
 			required: true
 		},
-		offline: {
+		/* offline: {
 			type: Boolean,
 			default: false
-		},
+		}, */
 		onCurrentUser: {
 			type: Function,
 			default: () => { }
@@ -48,20 +48,20 @@ export default {
 	},
 	methods: {
 		handleClick() {
-			if (this.offline) {
-				GoogleAuth['grantOfflineAccess']({'redirect_uri': 'postmessage'}).then(result => {
+			/* if (this.offline) {
+				GoogleAuth['grantOfflineAccess']({ 'redirect_uri': 'postmessage' }).then(result => {
 					return this.onSuccess(result);
 				}).catch(err => {
 					return this.onFailure(err);
 				});
 			} else {
-				const method = this.logoutButton ? 'signOut' : 'signIn';
-				GoogleAuth[method]().then(result => {
-					return this.onSuccess(result);
-				}).catch(err => {
-					return this.onFailure(err);
-				});
-			}
+			} */
+			const method = this.logoutButton ? 'signOut' : 'signIn';
+			GoogleAuth[method]().then(result => {
+				return this.onSuccess(result);
+			}).catch(err => {
+				return this.onFailure(err);
+			});
 		}
 	},
 	mounted() {

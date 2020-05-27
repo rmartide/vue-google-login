@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<GoogleLogin :params="params" :offline="true" :onSuccess="onSuccess" :onFailure="onFailure">Get offline token</GoogleLogin>
+		<!-- <GoogleLogin :params="params" :offline="true" :onSuccess="onSuccess" :onFailure="onFailure">Get offline token</GoogleLogin> -->
 		<GoogleLogin
 			:params="params"
 			:renderParams="renderParams"
@@ -17,8 +17,8 @@
 </template>
 
 <script>
-// import GoogleLogin from "../dist/vue-google-login.min";
-import GoogleLogin from '../src/';
+import GoogleLogin from "../dist/vue-google-login.min";
+// import GoogleLogin from '../src/';
 const CLIENT_ID = "672275288589-gdg4j010jalhp5n6gh45333dhuq69liv.apps.googleusercontent.com";
 import Vue from 'vue';
 

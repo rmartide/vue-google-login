@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
     (global = global || self, factory(global['vue-google-login'] = {}));
-}(this, function (exports) { 'use strict';
+}(this, (function (exports) { 'use strict';
 
     var auth2;
     var loadingPromise;
@@ -74,10 +74,25 @@
       return wrapper(auth2, 'signOut');
     };
 
+    var isSignedIn = function isSignedIn() {
+      return wrapper(auth2.isSignedIn, 'get');
+    };
+
+    var currentUser = function currentUser() {
+      return wrapper(auth2.currentUser, 'get');
+    };
+
+    var grantOfflineAccess = function grantOfflineAccess() {
+      return wrapper(auth2, 'grantOfflineAccess');
+    };
+
     var GoogleAuth = {
       load: load,
       signIn: signIn,
-      signOut: signOut
+      signOut: signOut,
+      isSignedIn: isSignedIn,
+      currentUser: currentUser,
+      grantOfflineAccess: grantOfflineAccess
     };
 
     //
@@ -95,6 +110,15 @@
         params: {
           type: Object,
           required: true
+        },
+
+        /* offline: {
+        	type: Boolean,
+        	default: false
+        }, */
+        onCurrentUser: {
+          type: Function,
+          default: function _default() {}
         },
         onSuccess: {
           type: Function,
@@ -120,6 +144,14 @@
         handleClick: function handleClick() {
           var _this = this;
 
+          /* if (this.offline) {
+          	GoogleAuth['grantOfflineAccess']({ 'redirect_uri': 'postmessage' }).then(result => {
+          		return this.onSuccess(result);
+          	}).catch(err => {
+          		return this.onFailure(err);
+          	});
+          } else {
+          } */
           var method = this.logoutButton ? 'signOut' : 'signIn';
           GoogleAuth[method]().then(function (result) {
             return _this.onSuccess(result);
@@ -134,6 +166,10 @@
         GoogleAuth.load(this.params).then(function () {
           if (_this2.renderParams && _this2.logoutButton === false) {
             window.gapi.signin2.render(_this2.id, _this2.renderParams);
+          }
+
+          if (GoogleAuth.isSignedIn()) {
+            _this2.onCurrentUser(GoogleAuth.currentUser());
           }
         }).catch(function (err) {
           console.log(err);
@@ -288,4 +324,4 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));

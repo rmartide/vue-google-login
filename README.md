@@ -38,6 +38,9 @@ Added support for the full auth api configuration.
     // Optional, if provided will call gapi.signin2.render with the provided params and render a button with google UI
     // https://developers.google.com/identity/sign-in/web/reference#gapisignin2renderid-options
     renderParams: Object
+    // If you are logged in it will return the current user when the component mounts
+    // The object it's the same as onSuccess
+    onCurrentUser: Function
 
 ```
 
