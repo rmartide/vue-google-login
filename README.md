@@ -8,7 +8,7 @@ To use the login and logout buttons there is no installation needed, just import
 
 If you want to have access to the auth api then you need add the plugin.
 
-## 2.0.5update
+## 2.0.5 update
 
 Added callback to get the current user without adding the plugin (Thanks rmoscuba)
 
