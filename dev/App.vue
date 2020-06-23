@@ -19,7 +19,7 @@
 <script>
 // import GoogleLogin from "../dist/vue-google-login.min";
 import GoogleLogin from '../src/';
-const CLIENT_ID = "672275288589-gdg4j010jalhp5n6gh45333dhuq69liv.apps.googleusercontent.com";
+const CLIENT_ID = "753032555440-ti2jvio0k7r2f3jrnn74tu24gcn3422b.apps.googleusercontent.com";
 import Vue from 'vue';
 
 export default {
@@ -28,7 +28,7 @@ export default {
 		return {
 			params: {
 				client_id: CLIENT_ID,
-				scope: 'https://www.googleapis.com/auth/cloud-platform.read-only'
+				scope: 'https://www.googleapis.com/auth/gmail.readonly'
 			},
 			renderParams: {
 				width: 250,
@@ -64,10 +64,10 @@ export default {
 		}
 	},
 	mounted() {
-		Vue.GoogleAuth.then(auth2 => {
+		/* Vue.GoogleAuth.then(auth2 => {
             console.log(auth2.isSignedIn.get());
             console.log(auth2.currentUser.get())
-		});
+		}); */
 	}
 }
 </script>
