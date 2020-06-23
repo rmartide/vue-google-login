@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import GoogleLogin from "../dist/vue-google-login.min";
-// import GoogleLogin from '../src/';
+// import GoogleLogin from "../dist/vue-google-login.min";
+import GoogleLogin from '../src/';
 const CLIENT_ID = "672275288589-gdg4j010jalhp5n6gh45333dhuq69liv.apps.googleusercontent.com";
 import Vue from 'vue';
 
@@ -27,7 +27,8 @@ export default {
 	data() {
 		return {
 			params: {
-				client_id: CLIENT_ID
+				client_id: CLIENT_ID,
+				scope: 'https://www.googleapis.com/auth/cloud-platform.read-only'
 			},
 			renderParams: {
 				width: 250,
@@ -50,10 +51,10 @@ export default {
 			console.log(err)
 		},
 		handleClick() {
-			Vue.GoogleAuth.then(auth2 => {
+			/* Vue.GoogleAuth.then(auth2 => {
 				console.log(auth2.isSignedIn.get());
 			});
-
+ */
             /* Vue.GoogleAuth.then(auth2 => {
                 console.log(auth2.isSignedIn.get());
                 auth2.signOut().then(() => {
