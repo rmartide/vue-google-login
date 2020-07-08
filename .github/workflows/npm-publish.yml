@@ -16,8 +16,7 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/rmartide/
           scope: '@rmartide'
-        run: |
-          npm config set scope "@ORG_OR_USERNAME"
-          npm publish
+      - run: npm config set scope "@rmartide"
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
