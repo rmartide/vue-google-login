@@ -51,23 +51,16 @@ export default {
 			console.log(err)
 		},
 		handleClick() {
-			/* Vue.GoogleAuth.then(auth2 => {
+			Vue.GoogleAuth.then(auth2 => {
 				console.log(auth2.isSignedIn.get());
 			});
- */
-            /* Vue.GoogleAuth.then(auth2 => {
-                console.log(auth2.isSignedIn.get());
-                auth2.signOut().then(() => {
-                    console.log(auth2.isSignedIn.get());
-                })
-            }); */
 		}
 	},
 	mounted() {
-		/* Vue.GoogleAuth.then(auth2 => {
-            console.log(auth2.isSignedIn.get());
-            console.log(auth2.currentUser.get())
-		}); */
+		Vue.GoogleAuth.then(auth2 => {
+			console.log(auth2.isSignedIn.get());
+			console.log(auth2.currentUser.get())
+		});
 	}
 }
 </script>
