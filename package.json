@@ -14,6 +14,9 @@
     "type": "git",
     "url": "git+https://github.com/rmartide/vue-google-login.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@rmartide"
+  },
   "keywords": [
     "vue",
     "vue-component",
