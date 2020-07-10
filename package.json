@@ -8,7 +8,8 @@
     "build": "webpack --config webpack.config.prod.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1",
     "bili": "bili",
-    "babel": "babel src --out-dir lib"
+    "babel": "babel src --out-dir lib",
+    "change-name": "json -I -f ./package.json -e this.name='\"@rmartide/vue-google-login\"'"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "bili": "^5.0.5",
     "css-loader": "^3.6.0",
     "html-webpack-plugin": "^4.3.0",
+    "json": "^9.0.6",
     "node-sass": "^4.14.1",
     "rollup": "^2.21.0",
     "rollup-plugin-vue": "^5.1.9",
