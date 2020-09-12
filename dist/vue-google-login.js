@@ -60,7 +60,7 @@
     var wrapper = function wrapper(f, method) {
       if (f) return f[method]();else {
         var err = {
-          err: 'Script not loaded correctly, did you added the plugin or the client_id to the component?'
+          err: 'Script not loaded correctly, did you add the plugin or the client_id to the component?'
         };
         return Promise.reject(err);
       }
