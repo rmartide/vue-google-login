@@ -43,7 +43,7 @@
     "json": "^9.0.6",
     "node-sass": "^4.14.1",
     "rollup": "^2.21.0",
-    "rollup-plugin-vue": "^5.1.9",
+    "rollup-plugin-vue": "^6.0.0",
     "sass-loader": "^9.0.2",
     "serialize-javascript": "^4.0.0",
     "style-loader": "^1.2.1",
